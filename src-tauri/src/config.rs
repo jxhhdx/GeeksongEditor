@@ -57,3 +57,33 @@ pub fn save_config(config: EditorConfig) -> Result<(), String> {
     let content = toml::to_string_pretty(&config).map_err(|e| e.to_string())?;
     fs::write(&path, content).map_err(|e| e.to_string())
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_default_config() {
+        let config = EditorConfig::default();
+        assert_eq!(config.theme, "light");
+        assert_eq!(config.font_size, 14);
+        assert!(config.word_wrap);
+        assert!(config.recent_folders.is_empty());
+    }
+
+    #[test]
+    fn test_config_roundtrip() {
+        let config = EditorConfig {
+            theme: "dark".to_string(),
+            font_size: 16,
+            word_wrap: false,
+            recent_folders: vec!["/tmp/test".to_string()],
+        };
+        let serialized = toml::to_string_pretty(&config).unwrap();
+        let deserialized: EditorConfig = toml::from_str(&serialized).unwrap();
+        assert_eq!(deserialized.theme, "dark");
+        assert_eq!(deserialized.font_size, 16);
+        assert!(!deserialized.word_wrap);
+        assert_eq!(deserialized.recent_folders, vec!["/tmp/test"]);
+    }
+}
