@@ -28,10 +28,58 @@ body {
   height: 100%;
 }
 
+.cm-editor.cm-focused {
+  outline: none;
+}
+
 .cm-scroller {
   font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace !important;
   font-size: 14px;
   line-height: 1.6;
+}
+
+.cm-gutters {
+  background-color: #f6f8fa !important;
+  color: #57606a !important;
+  border-right: 1px solid #d0d7de !important;
+}
+
+.cm-activeLineGutter {
+  background-color: #e6eaef !important;
+}
+
+.cm-activeLine {
+  background-color: #e6eaef !important;
+}
+
+.cm-cursor {
+  border-left-color: #24292f !important;
+}
+
+.cm-selectionBackground {
+  background-color: #add6ff !important;
+}
+
+.dark .cm-gutters {
+  background-color: #0d1117 !important;
+  color: #8b949e !important;
+  border-right-color: #30363d !important;
+}
+
+.dark .cm-activeLineGutter {
+  background-color: #161b22 !important;
+}
+
+.dark .cm-activeLine {
+  background-color: #161b22 !important;
+}
+
+.dark .cm-cursor {
+  border-left-color: #c9d1d9 !important;
+}
+
+.dark .cm-selectionBackground {
+  background-color: #264f78 !important;
 }
 
 .preview-content {

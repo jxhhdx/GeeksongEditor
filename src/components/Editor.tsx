@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
-import { EditorView, keymap } from '@codemirror/view'
-import { EditorState } from '@codemirror/state'
+import { basicSetup } from 'codemirror'
+import { EditorView } from '@codemirror/view'
 import { markdown } from '@codemirror/lang-markdown'
 
 interface EditorProps {
@@ -16,52 +16,25 @@ export default function Editor({ content, onChange, theme = 'light' }: EditorPro
   useEffect(() => {
     if (!editorRef.current) return
 
-    const baseTheme = EditorView.theme({
-      '&': { height: '100%' },
-      '.cm-scroller': { overflow: 'auto' },
-      '.cm-gutters': {
-        backgroundColor: theme === 'dark' ? '#0d1117' : '#f6f8fa',
-        color: theme === 'dark' ? '#8b949e' : '#57606a',
-        borderRight: `1px solid ${theme === 'dark' ? '#30363d' : '#d0d7de'}`,
-      },
-      '.cm-activeLineGutter': {
-        backgroundColor: theme === 'dark' ? '#161b22' : '#e6eaef',
-      },
-      '.cm-activeLine': {
-        backgroundColor: theme === 'dark' ? '#161b22' : '#e6eaef',
-      },
-      '.cm-cursor': {
-        borderLeftColor: theme === 'dark' ? '#c9d1d9' : '#24292f',
-      },
-      '.cm-selectionBackground': {
-        backgroundColor: theme === 'dark' ? '#264f78' : '#add6ff',
-      },
-    })
-
-    const extensions = [
-      markdown(),
-      keymap.of([
-        { key: 'Tab', run: (view) => { view.dispatch(view.state.replaceSelection('  ')); return true } },
-      ]),
-      EditorView.updateListener.of((update) => {
-        if (update.docChanged) {
-          onChange(update.state.doc.toString())
-        }
-      }),
-      baseTheme,
-    ]
-
-    const state = EditorState.create({
-      doc: content,
-      extensions,
-    })
-
     const view = new EditorView({
-      state,
+      doc: content,
+      extensions: [
+        basicSetup,
+        markdown(),
+        EditorView.updateListener.of((update) => {
+          if (update.docChanged) {
+            onChange(update.state.doc.toString())
+          }
+        }),
+      ],
       parent: editorRef.current,
     })
 
     viewRef.current = view
+
+    requestAnimationFrame(() => {
+      view.focus()
+    })
 
     return () => {
       view.destroy()
@@ -77,5 +50,12 @@ export default function Editor({ content, onChange, theme = 'light' }: EditorPro
     })
   }, [content])
 
-  return <div ref={editorRef} className="h-full w-full" />
+  return (
+    <div
+      ref={editorRef}
+      className="h-full w-full relative"
+      data-theme={theme}
+      onClick={() => viewRef.current?.focus()}
+    />
+  )
 }
