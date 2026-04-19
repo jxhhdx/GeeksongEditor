@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/components/editor.tsx","./src/components/filetree.tsx","./src/components/preview.tsx","./src/components/statusbar.tsx","./src/components/toolbar.tsx","./src/hooks/usescrollsync.ts","./src/utils/tauri.ts"],"version":"5.7.3"}

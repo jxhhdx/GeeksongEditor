@@ -26,19 +26,6 @@
       "csp": "default-src 'self'; img-src 'self' asset: http://asset.localhost; style-src 'self' 'unsafe-inline'"
     }
   },
-  "capabilities": [
-    {
-      "identifier": "default",
-      "description": "Default capabilities",
-      "local": true,
-      "windows": ["main"],
-      "permissions": [
-        "core:default",
-        "dialog:default",
-        "shell:default"
-      ]
-    }
-  ],
   "bundle": {
     "active": true,
     "targets": "all",
