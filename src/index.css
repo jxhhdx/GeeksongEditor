@@ -84,6 +84,171 @@ body {
   background-color: #264f78 !important;
 }
 
+/* ProseMirror WYSIWYG Editor Styles */
+.ProseMirror {
+  outline: none;
+  padding: 1.5rem 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  min-height: 100%;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-text);
+}
+
+.dark .ProseMirror {
+  color: var(--color-text-dark);
+}
+
+.ProseMirror p {
+  margin-bottom: 1em;
+}
+
+.ProseMirror h1,
+.ProseMirror h2,
+.ProseMirror h3,
+.ProseMirror h4,
+.ProseMirror h5,
+.ProseMirror h6 {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.ProseMirror h1 { font-size: 2em; border-bottom: 1px solid var(--color-border); padding-bottom: 0.3em; }
+.ProseMirror h2 { font-size: 1.5em; border-bottom: 1px solid var(--color-border); padding-bottom: 0.3em; }
+.ProseMirror h3 { font-size: 1.25em; }
+.ProseMirror h4 { font-size: 1em; }
+
+.dark .ProseMirror h1,
+.dark .ProseMirror h2 {
+  border-bottom-color: var(--color-border-dark);
+}
+
+.ProseMirror ul,
+.ProseMirror ol {
+  padding-left: 1.5em;
+  margin-bottom: 1em;
+}
+
+.ProseMirror li + li {
+  margin-top: 0.25em;
+}
+
+.ProseMirror li > p {
+  margin-bottom: 0.25em;
+}
+
+.ProseMirror blockquote {
+  border-left: 4px solid var(--color-border);
+  padding-left: 1em;
+  color: var(--color-text-muted);
+  margin: 0 0 1em 0;
+}
+
+.dark .ProseMirror blockquote {
+  border-left-color: var(--color-border-dark);
+  color: var(--color-text-muted-dark);
+}
+
+.ProseMirror pre {
+  background: var(--color-surface);
+  padding: 1em;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin-bottom: 1em;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 0.875em;
+}
+
+.dark .ProseMirror pre {
+  background: var(--color-surface-dark);
+}
+
+.ProseMirror code {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 0.875em;
+  background: var(--color-surface);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+}
+
+.dark .ProseMirror code {
+  background: var(--color-surface-dark);
+}
+
+.ProseMirror pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.ProseMirror img {
+  max-width: 100%;
+}
+
+.ProseMirror table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+.ProseMirror th,
+.ProseMirror td {
+  border: 1px solid var(--color-border);
+  padding: 6px 12px;
+}
+
+.dark .ProseMirror th,
+.dark .ProseMirror td {
+  border-color: var(--color-border-dark);
+}
+
+.ProseMirror th {
+  background: var(--color-surface);
+  font-weight: 600;
+}
+
+.dark .ProseMirror th {
+  background: var(--color-surface-dark);
+}
+
+.ProseMirror hr {
+  border: none;
+  border-top: 2px solid var(--color-border);
+  margin: 1.5em 0;
+}
+
+.dark .ProseMirror hr {
+  border-top-color: var(--color-border-dark);
+}
+
+.ProseMirror a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.dark .ProseMirror a {
+  color: var(--color-primary-dark);
+}
+
+.ProseMirror a:hover {
+  text-decoration: underline;
+}
+
+/* ProseMirror selection and cursor */
+.ProseMirror-focused {
+  outline: none;
+}
+
+.ProseMirror ::selection {
+  background: #add6ff;
+}
+
+.dark .ProseMirror ::selection {
+  background: #264f78;
+}
+
 .preview-content {
   line-height: 1.6;
   color: var(--color-text);

@@ -5,6 +5,8 @@ interface ToolbarProps {
   isDark: boolean
   onExportHtml: () => void
   onInsert: (syntax: string) => void
+  editorMode: 'split' | 'wysiwyg'
+  onToggleMode: () => void
 }
 
 export default function Toolbar({
@@ -14,6 +16,8 @@ export default function Toolbar({
   isDark,
   onExportHtml,
   onInsert,
+  editorMode,
+  onToggleMode,
 }: ToolbarProps) {
   return (
     <div className="h-11 border-b border-[var(--color-border)] dark:border-[var(--color-border-dark)] flex items-center px-3 gap-1.5 bg-[var(--color-surface)] dark:bg-[var(--color-surface-dark)] flex-shrink-0 select-none">
@@ -42,6 +46,14 @@ export default function Toolbar({
       <button onClick={() => onInsert('| 列1 | 列2 |\n| --- | --- |\n| 内容 | 内容 |')} className="px-2 py-1 rounded text-sm hover:bg-black/5 dark:hover:bg-white/5" title="表格">⊞</button>
 
       <div className="flex-1" />
+
+      <button
+        onClick={onToggleMode}
+        className="px-3 py-1 rounded text-sm bg-green-600 text-white hover:bg-green-700 transition-colors"
+        title="切换编辑模式"
+      >
+        {editorMode === 'split' ? '✏️ 直接编辑' : '↔️ 分栏'}
+      </button>
 
       <button
         onClick={onExportHtml}

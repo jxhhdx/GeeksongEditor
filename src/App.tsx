@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import Editor from './components/Editor'
 import Preview from './components/Preview'
+import WysiwygEditor from './components/WysiwygEditor'
 import Toolbar from './components/Toolbar'
 import FileTree from './components/FileTree'
 import StatusBar from './components/StatusBar'
@@ -114,11 +115,16 @@ $$
   const [sidebarOpen, setSidebarOpen] = useState(true)
   const [isDark, setIsDark] = useState(false)
   const [saved, setSaved] = useState(true)
+  const [editorMode, setEditorMode] = useState<'split' | 'wysiwyg'>('split')
 
   const editorContainerRef = useRef<HTMLDivElement>(null)
   const previewRef = useRef<HTMLDivElement>(null)
 
   useScrollSync(editorContainerRef, previewRef)
+
+  const handleToggleMode = useCallback(() => {
+    setEditorMode((prev) => (prev === 'split' ? 'wysiwyg' : 'split'))
+  }, [])
 
   useEffect(() => {
     let cancelled = false
@@ -205,6 +211,8 @@ $$
         isDark={isDark}
         onExportHtml={handleExport}
         onInsert={handleInsert}
+        editorMode={editorMode}
+        onToggleMode={handleToggleMode}
       />
 
       <div className="flex flex-1 overflow-hidden">
@@ -219,14 +227,20 @@ $$
           </div>
         )}
 
-        <div className="flex-1 flex overflow-hidden">
-          <div ref={editorContainerRef} className="flex-1 border-r border-[var(--color-border)] dark:border-[var(--color-border-dark)] min-w-0">
-            <Editor content={content} onChange={handleChange} theme={isDark ? 'dark' : 'light'} />
+        {editorMode === 'split' ? (
+          <div className="flex-1 flex overflow-hidden">
+            <div ref={editorContainerRef} className="flex-1 border-r border-[var(--color-border)] dark:border-[var(--color-border-dark)] min-w-0">
+              <Editor content={content} onChange={handleChange} theme={isDark ? 'dark' : 'light'} />
+            </div>
+            <div className="flex-1 min-w-0 bg-[var(--color-bg)] dark:bg-[var(--color-bg-dark)]">
+              <Preview html={previewHtml} ref={previewRef} />
+            </div>
           </div>
-          <div className="flex-1 min-w-0 bg-[var(--color-bg)] dark:bg-[var(--color-bg-dark)]">
-            <Preview html={previewHtml} ref={previewRef} />
+        ) : (
+          <div className="flex-1 overflow-hidden">
+            <WysiwygEditor content={content} onChange={handleChange} theme={isDark ? 'dark' : 'light'} />
           </div>
-        </div>
+        )}
       </div>
 
       <StatusBar
