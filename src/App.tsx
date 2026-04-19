@@ -8,16 +8,7 @@ import { useScrollSync } from './hooks/useScrollSync'
 import { renderMarkdown, readFile, writeFile, exportHtml } from './utils/tauri'
 import type { MdFile } from './utils/tauri'
 import { save } from '@tauri-apps/plugin-dialog'
-
-function countWords(text: string): number {
-  const trimmed = text.trim()
-  if (!trimmed) return 0
-  return trimmed.split(/\s+/).length
-}
-
-function countChars(text: string): number {
-  return text.replace(/\s/g, '').length
-}
+import { countWords, countChars } from './utils/wordCount'
 
 export default function App() {
   const [content, setContent] = useState('# Hello GeeksongEditor\n\n开始写作吧。')
